@@ -20,4 +20,4 @@ This is a post description for meta purposes. This is also the excerpt of the ar
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page.
 
 ---
-[<kbd><br>Older Post<br></kbd>][https://jaynakum.github.io]
+[<kbd><br>Older Post<br></kbd>](https://jaynakum.github.io)
