@@ -1,5 +1,9 @@
+name: JAY'S BLOG
 title: null
 description: Welcome to my world!
 domain: jaynakum.github.io
 url: https://jaynakum.github.io
 baseurl: /blog/
+author:
+  name: Jay Nakum
+  email: contact.jaynakum@gmail.com
