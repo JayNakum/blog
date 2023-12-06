@@ -14,19 +14,21 @@ _December 6, 2023_
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page. Test blog post.  
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page.
 
----
+
 **Test Title** (_December 6, 2023_)
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page. Test blog post.  
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page.
 
----
+
 **Test Title**
+
 (_December 6, 2023_)
+
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page. Test blog post.  
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page.
 
----
-**Test Title**
+
+<h1>Test Title</h1>
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page. Test blog post.  
 This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page.
 (_December 6, 2023_)
