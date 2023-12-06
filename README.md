@@ -1,4 +1,4 @@
-_Welcome to my world!_
+<center>Welcome to my world!</center>
 
 # Recent Posts
 
