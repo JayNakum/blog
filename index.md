@@ -1,8 +1,8 @@
 [![Jay's Blog](./assets/header.png)](https://jaynakum.github.io/blog/)
 
-# [[HappyFace]]
+# Happy Face : An OpenGL Renderer
 _December 6, 2023_  
-This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page. Test blog post.  
-This is a post description for meta purposes. This is also the excerpt of the article that shows up on the index/home page.  
-[Continue reading...](./posts/1/HappyFace.md)
+
+[Continue reading...](./posts/1/HappyFace)
+
 
