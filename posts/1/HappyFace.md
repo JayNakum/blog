@@ -26,6 +26,7 @@ HappyFace.vcxproj
 |---vendors
 ```
 The entirety of the magic happens in the `src\HappyFace`. It contains all the component classes, core classes, OpenGL implementations, window management & event handling and utility functions.
+
 ## A look under the hood: Engine
 I followed a top down approach during the development. That is, I would first decide how the top/user level code would look like and then work my way down on implementing the modules required to implement that.  
 `HappyFace\Core` is the root of the project containing following modules:
@@ -33,14 +34,19 @@ I followed a top down approach during the development. That is, I would first de
 2. Application
 3. Scene
 4. Renderer
-**Entry Point**
-I learnt this approach from [Cherno](https://www.youtube.com/@TheCherno) and this is where the main methods resides. The benefit of doing this that the engine is in full control rather than the user. It allows the engine to control what happens before the it is loaded, during the rendering and after the shut down. This ultimately prevents memory leaks and unusual crashes.  
-**Application**
-It is a base class that initializes the project. Initialization includes creating a window, initializing the renderer and setting callbacks for event handling. Users extends this class to create their own application with their custom parameters such as Application Name, title of the window, size of the window etc. The application class contains an instance of a scene and the renderer.  
-**Scene**
-This class can be describes as "a custom data structure to store the components which can be accepted by the renderer". Users are allowed to create their custom scenes by extending this class. An example of a custom scene is provided in the `src/TestApp.cpp`. This scene is then passed on to the renderer.  
-**Renderer**
-The main job of the renderer is to draw the provided scene. It initializes OpenGL with the provided settings. Renderer draws the scene and it updates the window every frame called the "main loop". It also contains an instance of a debug camera that allows the users to move in the scene. Renderer manages the drawing and for that it also handles the shaders i.e. what shader to use, setting the uniform variables etc.  
+
+**Entry Point**  
+I learnt this approach from [Cherno](https://www.youtube.com/@TheCherno) and this is where the main methods resides. The benefit of doing this that the engine is in full control rather than the user. It allows the engine to control what happens before the it is loaded, during the rendering and after the shut down. This ultimately prevents memory leaks and unusual crashes.
+
+**Application**  
+It is a base class that initializes the project. Initialization includes creating a window, initializing the renderer and setting callbacks for event handling. Users extends this class to create their own application with their custom parameters such as Application Name, title of the window, size of the window etc. The application class contains an instance of a scene and the renderer.
+
+**Scene**  
+This class can be describes as "a custom data structure to store the components which can be accepted by the renderer". Users are allowed to create their custom scenes by extending this class. An example of a custom scene is provided in the `src/TestApp.cpp`. This scene is then passed on to the renderer.
+
+**Renderer**  
+The main job of the renderer is to draw the provided scene. It initializes OpenGL with the provided settings. Renderer draws the scene and it updates the window every frame called the "main loop". It also contains an instance of a debug camera that allows the users to move in the scene. Renderer manages the drawing and for that it also handles the shaders i.e. what shader to use, setting the uniform variables etc.
+
 ![models.png](./assets/models.png)
 
 `HappyFace\GL` contains and abstraction over the core OpenGL functions for:
@@ -49,12 +55,15 @@ The main job of the renderer is to draw the provided scene. It initializes OpenG
 3. Index Buffers
 4. Shaders
 5. Textures
+
 What are these you ask? Well, [Joey](https://twitter.com/JoeyDeVriez) does a better job at explaining on [learnopengl.com](https://learnopengl.com/). In my [opinion](https://x.com/JayNakum_/status/1575728655640076289), this is THE BEST resource to learn computer graphics and OpenGL.  
 `HappyFace\Platform` handles window creation and event handling.  
 `HappyFace\Components` contains data structures to hold the scene components:
 - Model and Mesh
 - Lights
+
 `HappyFace\Utility` contains the "resource manager". Resource manager manages loading files for textures and shaders from the `resources` directory. And last `vendors` contains some 3rd party libraries for OpenGL, window creation, mathematics and managing images.
+
 ## Reviews and Resources
 This is truly one of my favorite projects. I am proud of this work because it is my honest hard work and the learnings from this project are priceless. I believe that this is the project that got me into Ubisoft. I learnt a lot about computer graphics, game engines and OpenGL during the development, I learnt how to handle larger codebases and I have tried to follow good coding standards as well, although coming from a Java background I was already in a habit of writing code in similar style. During the development, I came across some useful resources:
 - [learnopengl.com](https://learnopengl.com/): THE BEST
