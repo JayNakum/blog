@@ -8,20 +8,22 @@ When I started learning computer graphics and OpenGL, I wanted to implement all 
 The idea was that whenever someone wants to use this "engine" they would simply include a singular header file `HappyFace.h` and that's it, the complexity of the rendering is fully abstracted. If the user wants to load in custom resources such as shaders, textures and 3D models (from other software like blender); those would be placed in the `resource` directory.
 ```
 HappyFace.vcxproj
-	resources
-		objects
-		shaders
-		textures
-	src
-		HappyFace
-			Components
-			Core
-			GL
-			Platform
-			Utility
-			HappyFace.h
-		TestApp.cpp
-	vendors
+|---resources
+|   |---objects
+|   |---shaders
+|   |---textures
+|
+|---src
+|   |---HappyFace
+|   |   |---Components
+|   |   |---Core
+|   |   |---GL
+|   |   |---Platform
+|   |   |---Utility
+|   |   |---HappyFace.h
+|   |---TestApp.cpp
+|
+|---vendors
 ```
 The entirety of the magic happens in the `src\HappyFace`. It contains all the component classes, core classes, OpenGL implementations, window management & event handling and utility functions.
 ## A look under the hood: Engine
@@ -52,7 +54,7 @@ What are these you ask? Well, [Joey](https://twitter.com/JoeyDeVriez) does a bet
 `HappyFace\Components` contains data structures to hold the scene components:
 - Model and Mesh
 - Lights
-`HappyFace\Utility` contains the "resource manager". Resource manager manages loading files for textures and shaders from the `resources` directory.
+`HappyFace\Utility` contains the "resource manager". Resource manager manages loading files for textures and shaders from the `resources` directory. And last `vendors` contains some 3rd party libraries for OpenGL, window creation, mathematics and managing images.
 ## Reviews and Resources
 This is truly one of my favorite projects. I am proud of this work because it is my honest hard work and the learnings from this project are priceless. I believe that this is the project that got me into Ubisoft. I learnt a lot about computer graphics, game engines and OpenGL during the development, I learnt how to handle larger codebases and I have tried to follow good coding standards as well, although coming from a Java background I was already in a habit of writing code in similar style. During the development, I came across some useful resources:
 - [learnopengl.com](https://learnopengl.com/): THE BEST
