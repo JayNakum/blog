@@ -6,7 +6,7 @@ Hello hello people of the earth! Welcome to my first blog post. In this post I w
 When I started learning computer graphics and OpenGL, I wanted to implement all the things that I was learning into one single project and that's how this project began. This project is basically an abstraction over the concepts that I learnt from various different resources. Some of the which are mentioned later in this post.
 ## Understanding the project structure
 The idea was that whenever someone wants to use this "engine" they would simply include a singular header file `HappyFace.h` and that's it, the complexity of the rendering is fully abstracted. If the user wants to load in custom resources such as shaders, textures and 3D models (from other software like blender); those would be placed in the `resource` directory.
-
+```
 HappyFace.vcxproj
 	resources
 		objects
@@ -22,7 +22,7 @@ HappyFace.vcxproj
 			HappyFace.h
 		TestApp.cpp
 	vendors
-
+```
 The entirety of the magic happens in the `src\HappyFace`. It contains all the component classes, core classes, OpenGL implementations, window management & event handling and utility functions.
 ## A look under the hood: Engine
 I followed a top down approach during the development. That is, I would first decide how the top/user level code would look like and then work my way down on implementing the modules required to implement that.  
