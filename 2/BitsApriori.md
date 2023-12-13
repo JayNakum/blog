@@ -3,7 +3,7 @@
 
 *NOTE: Assuming that if you are reading this you already know what is Association Rule Mining and are aware of Apriori Algorithm.*
 
-This is a small project I worked on under the guidance of [Dr. Himanshu Gajera](https://www.linkedin.com/in/himanshu-gajera/) for my university course, Machine Learning. Association Rule Mining was not really a topic in our syllabus but ever since I learnt about this, I had this idea of encoding the rules into binary numbers. In essence, instead of storing the transactions as a sparse matrix, the idea was to store a single number corresponding to its binary encoded value:
+This is a small project I worked on under the guidance of [Dr. Himanshu Sir](https://www.linkedin.com/in/himanshu-gajera/) and [Dr. Rajeev Sir](https://www.linkedin.com/in/rajeev-kumar-gupta-02266b84/) for my university course, Machine Learning. Association Rule Mining was not really a topic in our syllabus but ever since I learnt about this, I had this idea of encoding the rules into binary numbers. In essence, instead of storing the transactions as a sparse matrix, the idea was to store a single number corresponding to its binary encoded value:
 
 | TID | i1 | i2 | i3 | binary |
 | --- | -- | -- | -- | ------ |
