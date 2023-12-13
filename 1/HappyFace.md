@@ -1,6 +1,6 @@
 # Happy Face: An OpenGL Renderer
 
-![](./assets/shader.gif)
+![Light Shader gif](../assets/1/shader.gif)
 
 Hello hello people of the earth! Welcome to my first blog post. In this post I will be explaining a small project that I developed a while back. As the title suggests, it is an OpenGL renderer called HappyFace.  
 When I started learning computer graphics and OpenGL, I wanted to implement all the things that I was learning into one single project and that's how this project began. This project is basically an abstraction over the concepts that I learnt from various different resources. Some of the which are mentioned later in this post.
@@ -47,7 +47,7 @@ This class can be describes as "a custom data structure to store the components 
 **Renderer**  
 The main job of the renderer is to draw the provided scene. It initializes OpenGL with the provided settings. Renderer draws the scene and it updates the window every frame called the "main loop". It also contains an instance of a debug camera that allows the users to move in the scene. Renderer manages the drawing and for that it also handles the shaders i.e. what shader to use, setting the uniform variables etc.
 
-![models.png](./assets/models.png)
+![models.png](../assets/1/models.png)
 
 `HappyFace\GL` contains and abstraction over the core OpenGL functions for:
 1. Vertex Arrays
