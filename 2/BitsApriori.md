@@ -49,5 +49,5 @@ The project is developed in C++ with the following classes:
 
 You can find the complete documented implementation at `src\main.cpp` on my GitHub:
 [![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=JayNakum&repo=BitsApriori)](https://github.com/JayNakum/BitsApriori)
-If you have any suggestions or comments and you like this project, let me know on twitter [@JayNakum_](https://twitter.com/JayNakum_).
+If you have any suggestions or comments and you like this project or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_).
 ## Thanks for reading, Aavjo!
