@@ -15,6 +15,7 @@ After finishing the project I got to know that the concept of storing transactio
 1. Saves a ton of memory as the data size grows.
 2. Adding new items is also quite simple.
 3. Performing bitwise operations is not computationally expensive.
+
 ### 1. Saving Memory
 If we simply do the maths for a dataset of 100 items and 100 transactions, storing each entry as a boolean in a tabular format would take:
 ```
@@ -48,6 +49,6 @@ The project is developed in C++ with the following classes:
 - **Apriori**: It is the core of the project. It takes in minimum support, confidence & lift and it calculates the association rules using the binary encoded data.
 
 You can find the complete documented implementation at `src\main.cpp` on my GitHub:
-[![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=JayNakum&repo=BitsApriori)](https://github.com/JayNakum/BitsApriori)
+[![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=JayNakum&repo=BitsApriori)](https://github.com/JayNakum/BitsApriori)  
 If you have any suggestions or comments and you like this project or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_).
 ## Thanks for reading, Aavjo!
