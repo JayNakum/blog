@@ -11,6 +11,7 @@ Usually the problems with attack prone passwords are:
 - People just use insecure passwords because they don't want to remember complex passwords.
 - People use complex password but it is same on every website and service.
 - Using password manager that is not so secure.
+
 Some of the existing solutions are:
 - Using complex passwords, but it is easy to get overwhelmed with the amount of passwords that is needed to be remembered.
 
