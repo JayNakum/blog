@@ -1,7 +1,7 @@
 # Revisiting BitNCrypt: A password manager that doesn't store passwords
 ![bitncrypt_definition.png](../assets/3/bitncrypt_definition.png)
 
-I'm quite proud of this one! It is a custom made algorithm that generates password and it works like a hash function. Now, if you know what are the hash function's properties, you already know what this project is. A simple yet surprisingly efficient solution to manage passwords. The primary questions that I will be answering in this blog are:
+I'm quite proud of this one! In this blog I have revisited BitNCrypt, it is a custom made algorithm that generates password and it works like a hash function. I developed this project for my university subject Information Security and it was guided by [Dr. Hargeet Kaur Madam](https://www.linkedin.com/in/dr-hargeet-kaur-33a1a3109/). Now, if you know what are the hash function's properties, you already know what this project is. A simple yet surprisingly efficient solution to manage passwords. The primary questions that I will be answering in this blog are:
 1. Why to use such tool?
 2. What is BitNCrypt?
 3. How BitNCrypt works?
@@ -86,7 +86,8 @@ It is just a simple XOR operation with the key.
 result = str(int.from_bytes(b_round2, sys.byteorder) ^ int.from_bytes(b_key, sys.byteorder))
 ```
 ### 4. Final Selection
-In this step, the result from the XOR is divided into 12 sections, hence the resulting password will be of length 12. And form each section one byte is selected. This selection happens using the pin. For example, if the pin is 940925 then from the 1st section the 9th byte will be selected then from the 2nd section 4th byte will be selected and so on. Each byte is then treated as a character using ascii value and the character is converted into a valid symbol that can be used in a password.
+In this step, the result from the XOR is divided into 12 sections, hence the resulting password will be of length 12. And form each section one byte is selected. This selection happens using the pin. For example, if the pin is 940925 then from the 1st section the 9th byte will be selected then from the 2nd section 4th byte will be selected and so on. Each byte is then treated as a character using ascii value and the character is converted into a valid symbol that can be used in a password.  
+In the C++ version of this section, I was limiting the ascii for a-z characters only and then some special characters and numbers were added later. However, in that version I was appending some numbers from the `pin` directly. Due to which the pin could be brute-forced with enough password samples. Now I've modified the code to give ascii character for all the printable characters directly i.e. A-Z, a-z, 0-9 and symbols.
 ```python
 sections = _divide_string(round3, 12)
 i = 0
@@ -99,7 +100,7 @@ for section in sections:
 print(result)
 ```
 
-You can use this tool on web at:
+You can checkout this tool here:
 [![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=TwoDollarTools&repo=BitNCrypt)](https://bitncrypt.streamlit.app/)  
 If you have any suggestions or comments and you like this project or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_).
 ## Thanks for reading, Aavjo!

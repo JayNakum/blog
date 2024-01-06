@@ -1,4 +1,8 @@
 [![Jay's Blog](./assets/header.png)](https://jaynakum.github.io/blog/)
+# Revisiting BitNCrypt: A password manager that doesn't store passwords
+_January 6, 2024_  
+I'm quite proud of this one! In this blog I have revisited BitNCrypt, it is a custom made algorithm that generates password and it works like a hash function.
+[Continue reading...](./3/BitNCrypt)
 # BitsApriori: Binary Encoded Transactions
 *December 14, 2023*  
 Ever since I learnt about association rule mining and transactional datasets, I had this idea of encoding the rules into binary numbers.  
