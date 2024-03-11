@@ -23,7 +23,7 @@ The smart way, that is recommended and is very effective, is to remember a keywo
 BitNCrypt is just that! But since we're using computers, the algorithm is not simple and something you can do in your head.
 
 ## How it works?
-This project was initially coded in C++ and my main aim was not to have a password manager. My goal behind this was to learn multi threading, hence I forced multithreading into this project even though it is not necessary. The [web tool](https://bitncrypt.streamlit.app/) of this project is coded using python and it is a much more simpler version of the overcomplicated C++ project. In this blog I have taken code snippet from both the projects, whichever was easier to understand.
+This project was initially coded in C++ and my main aim was not to have a password manager. My goal behind this was to learn multi threading, hence I forced multithreading into this project even though it is not necessary. The [web tool](https://twodollartools.streamlit.app/BitNCrypt/) of this project is coded using python and it is a much more simpler version of the overcomplicated C++ project. In this blog I have taken code snippet from both the projects, whichever was easier to understand.
 ### The three terms:
 1. Pin: A 6 digit pin that user needs to remember.
 2. Key: A txt file containing a random jumble of words.
@@ -108,6 +108,6 @@ print(result)
 ```
 
 You can checkout this tool here:  
-[![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=TwoDollarTools&repo=BitNCrypt)](https://bitncrypt.streamlit.app/)  
+[![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=TwoDollarTools&repo=BitNCrypt)](https://twodollartools.streamlit.app/BitNCrypt/)  
 If you have any suggestions or comments and you like this project or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_).
 ## Thanks for reading, Aavjo!
