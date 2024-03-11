@@ -107,7 +107,6 @@ for section in sections:
 print(result)
 ```
 
-You can checkout this tool here:  
-[![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=TwoDollarTools&repo=BitNCrypt)](https://twodollartools.streamlit.app/BitNCrypt/)  
+You can checkout this tool at [TwoDollarTools](https://twodollartools.streamlit.app/).
 If you have any suggestions or comments and you like this project or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_).
 ## Thanks for reading, Aavjo!
