@@ -75,5 +75,3 @@ This is truly one of my favorite projects. I am proud of this work because it is
 If you have any suggestions or comments and you like this project, let me know on twitter [@JayNakum_](https://twitter.com/JayNakum_). You can check out the repository on GitHub!  
 [![HappyFace](https://github-readme-stats.vercel.app/api/pin/?username=JayNakum&repo=HappyFace)](https://github.com/JayNakum/HappyFace)
 ## Thanks for reading, Aavjo!
-
-<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Support me on Buy me a coffee!" data-message="Consider supporting?" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
