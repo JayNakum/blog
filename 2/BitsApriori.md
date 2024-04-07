@@ -52,3 +52,15 @@ You can find the complete documented implementation at `src\main.cpp` on my GitH
 [![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=JayNakum&repo=BitsApriori)](https://github.com/JayNakum/BitsApriori)  
 If you have any suggestions or comments and you like this project or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_).
 ## Thanks for reading, Aavjo!
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Support me on Buy me a coffee!" data-message="Consider Supporting?" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZWT1388L9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WZWT1388L9');
+</script>

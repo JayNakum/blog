@@ -11,3 +11,15 @@ Ever since I learnt about association rule mining and transactional datasets, I 
 _December 7, 2023_  
 Hello hello people of the earth! Welcome to my first blog post. In this post I will be explaining a small project that I developed a while back. As the title suggests, it is an OpenGL renderer called HappyFace.
 [Continue reading...](./1/HappyFace)
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Support me on Buy me a coffee!" data-message="Consider Supporting?" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZWT1388L9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WZWT1388L9');
+</script>
