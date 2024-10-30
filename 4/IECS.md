@@ -1,0 +1,15 @@
+# Harmony Engine has IECS: Dynamic Scene Management
+
+Harmony is what I call my engine. The engine provides me a framework to experiment various stuff. It is designed in such a way that almost everything is plug n play. It allows me swap out an entire system of the engine. I had implemented this design because I didn't want to refactor a major chunk of code every time I decide to experiment with something. This design not only allows me to experiment rendering techs, but it also enables me to experiment the engine side of the features. One of which is the topic of this blog.
+
+As per the engine design, I was in need of a system where I am not dependent on a particular scene management system (like ECS). I needed the engine to be dynamic enough that I could swap out ECS with a component based system (CBS) or a entity process system (EPS) (allowing me to explore, experiment and implement these to learn them). Moreover I needed the system to be so dynamic that I wanted the same system to work for physics and sound scenes. 
+By that I mean that the engine would simply ask the framework for a scene. And the engine would provide a description containing the description of the scene (whether it is an entity scene, physics scene or a sound scene). Then the system won't know what is happening under the hood. It won't know whether it is using ECS, CBS for entity scene. Or for physics is it using Box2D or Nvidia PhysX. And so on. Also, I wanted it to be generic that it is up to the engine to decide whether it wants to draw the scene, run a physics simulation or just write it out to a json.
+
+Now, using an ECS would do this job for me. It would easily allow me to create a scene which can be used by all the different systems for rendering, physics, sound, file writer, etc. But the problem was that a scene is such a core part of any engine that it is extremely cumbersome to swap out something like this when needed.
+
+Hence the solution that I came up with, IECS. It stands for ECS Interface. It is a simple solution to my problem. I know it is not the fastest or the best of the ways. But it is dynamic and just what I need. It is a hybrid system in which I designed a common interface for a scene, entity and components. This is part is essentially an interface and it has further dynamic implementations. Allowing the scene project to manage the entities in any way I want, by implementing this intermediate ECS-like interface. On the engine side, it would almost feel like using an ECS but under the hood I could have an entity process system and it would be completely abstracted away.
+
+I personally do not think it is a revolutionary system, but it works for me and I wanted to share it because I haven't posted anything in a while and more importantly I wanted to share a little bit about the engine. The design that I have, will allow me to explore many more things and experiment with literally everything.
+
+If you have any suggestions or comments and you like this project or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_).
+## Thanks for reading, Aavjo!
