@@ -1,4 +1,9 @@
 [![Jay's Blog](./assets/header.png)](https://jaynakum.github.io/blog/)
+
+# RTT: Rendering Water using Gerstner (Trochoidal) Waves
+_June 3, 2025_  
+The first of many Render Tech Tuesday. For this one, we have the most basic water rendering using Gerstner Waves.
+[Continue reading...](./5/GerstnerWaves)
 # Harmony Engine has IECS: Dynamic Scene Management
 _October 30, 2024_  
 I've been working on my game engine called Harmony for over 6 months and I've faced a problem.
@@ -15,3 +20,5 @@ Ever since I learnt about association rule mining and transactional datasets, I 
 _December 7, 2023_  
 Hello hello people of the earth! Welcome to my first blog post. In this post I will be explaining a small project that I developed a while back. As the title suggests, it is an OpenGL renderer called HappyFace.
 [Continue reading...](./1/HappyFace)
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Consider supporting Jay?" data-message="consider supporting?" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
