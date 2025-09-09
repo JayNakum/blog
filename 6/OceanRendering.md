@@ -277,24 +277,26 @@ e^{ix} = \cos(x) + i\sin(x)
 $$
 With this, our wave parameters can be replaced with $x$ 
 $$
-A \sin(\mathbf{k}x + \omega t + p) \rightarrow Ae^{i(\mathbf{k}x + \omega t + p)}
+A \sin(\mathbf{k}x + w t + p) \rightarrow Ae^{i(\mathbf{k}x + w t + p)}
 $$
 we can also replace the amplitude, the initial phase, and the time dependent components with a single complex amplitude that includes all of them
 $$
-Ae^{i(\omega t + p)}e^{i(\mathbf{k}x + \omega t)} \rightarrow \hat{h}e^{i(\mathbf{k}x)}
+Ae^{i(w t + p)}e^{i(\mathbf{k}x)} \rightarrow \hat{h}e^{i(\mathbf{k}x)}
 $$
 In this notation, the displacement of the sum of waves looks like this, which is a lot similar to the Frourier Transform equation mentioned above.
 $$
 h(x, t) = \sum_{\mathbf{k}}\hat{h}(\mathbf{k}, t)e^{i(\mathbf{k} \cdot x)}
 $$
-Which, when expressed in terms of frequency domain, would look something like this.
+
+For sum of many waves we need different amplitudes for different waves. Since we have many waves (each with its own $\mathbf{k}$), we need many different complex amplitudes. So $\hat{h}$ becomes a function of $\mathbf{k}$.  
+And given a dispersion relation $\omega(\mathbf{k})$, the Fourier amplitudes (complex amplitudes) of the wavefield realization at time $t$ are:
 $$
-\hat{h}(\mathbf{k}, t) = \hat{h_0}(\mathbf{k})e^{i(t \omega(\mathbf{k}))}
+\hat{h}(\mathbf{k}, t) = \hat{h_0}(\mathbf{k})e^{i\omega(\mathbf{k})t}
 $$
 The $\hat{h}$ represents the wave function in frequency. And since the wave animates over time, the frequency spectrum is also time dependent and updates over time. This spectrum is called the **oceanographic spectrum**.
 
-NOTE: this time dependent equation is not the same as the one in our wave function. The time in wave function denotes the animation of wave over time. Not to be confused with the evolution of frequency spectrum over time.  
-NOTE: Earlier we used $\omega$ to represet the angular frequency which measures how fast the phase angle changes, not to be confused with frequency of the wave function which it denotes here. However, the $\mathbf{k}$ still represents the wave number i.e number of waves in a given time duration.
+NOTE: this time dependent equation is not the same as the one in our wave function. The time in wave function denotes the animation of wave over time because the wave is in time domain. Not to be confused with the evolution of frequency spectrum over time.  
+NOTE: Earlier we used $\omega$ to represent the angular frequency which measures how fast the phase angle changes, not to be confused with frequency of the wave function which it denotes here. However, the $\mathbf{k}$ still represents the wave number i.e number of waves in a given time duration.
 
 And it is the inverse Fourier transform of this $\hat{h}(\mathbf{k}, t)$ through which will get our desired heightfield.
 
@@ -734,25 +736,17 @@ And with that we get our beautiful ocean
 ![ocean_water.gif](../assets/6/ocean_water.gif)
 ## Future Work
 Well, even though we have implemented one of the most popular water rendering technique, we are still a long way from achieving a AAA quality ocean water simulation.
-#### Wave Cascades
-The current output is of a 128 x 128 grid with a 128 x 128 displacement texture. For a large sized ocean simulation we can increase the displacement texture size only so much before even the FFT starts taking a lot of GPU time.
-One of the major benefit of using FFT is that it results fully tile able heightmaps. So instead of increasing the texture resolution, we tile it. Since there are so many waves, tiling will not be noticeable to begin with, however since we are always after better quality, we can implement wave cascading.
-In wave cascading, we generate multiple heightmaps with varying spectrum parameters. For example three heightmaps. 
-- Heightmap0 contains only the larger amplitude waves ie the waves that are in meters of height. 
-- Heightmap1 contains a slightly reduced amplitude and higher frequency waves.
-- Heightmap2 contains low amplitude high frequency waves.
-And for the mesh tile near to camera, we use a Heightmap0 + Heightmap1 + Heightmap2. The tiles that are a bit far, we only use Heightmap0 + Heightmap1, and so on...
-#### Foam and Spray
-Two of the most important part of water that we have not looked into at all. The generation of foam in the troughs of the waves and spray particles wave peaks and collisions.
+- Wave Cacades
+- Foam
+- Spray
+- Buoyancy Simulation
+- Lighting
 
+The generation of foam in the troughs of the waves.  
 In the pixel shader, I implemented a quick trick by tweaking the base color based on the height. And it gives a slightly greyish tone to the troughs. However, this is not actual foam calculation.
 ```C++
 float depthFactor = 1.0 + min(0.0, displacementY) * 0.2;
 float4 baseWaterColor = baseColor * depthFactor;
 ```
-#### Buoyancy Simulation
-To allow players to interact with water we need buoyancy physics simulation that can bob up an down any objects placed in water.
-### Lighting
-Water by nature reflects and refracts light. Meaning that more sophisticated light techniques are required for even a basic looking water. Ocean environment can further be extended by techniques such as water caustics, god rays, under water lighting simulation, etc. 
 ## Conclusion
-We have come a long way starting from dipping our toes and all the way to swimming into the water rendering. However we are still far from diving into the ocean and many iterations on this tech will slowly get us there.
+Starting from dipping our toes to swimming into the water rendering. However this is still far from diving into the ocean. The FFT technique is just the first 50% of ocean water rendering, the lights are the other 50% and many iterations on this tech will slowly get it there.
