@@ -52,6 +52,7 @@ The function $h(x, t)$ will give a time dependent displacement on the $y$ axis f
 $$
 h(x, t) = A e^{\bigl(p_m \sin(k x + \omega t) - p_o \bigr)}
 $$
+
 where,  
 $A$ = amplitude  
 $p_m$ = max peak (control how pointy the wave is)  
@@ -64,14 +65,19 @@ $p_o$ = peak offset (shift the wave down)
 ![exp_sine_wave.png](../assets/6/exp_sine_wave.png)
 
 Now, if we add another coordinate, we get a 3D sine wave.
+
 $$
 h(x, t) = A e^{\bigl(p_m \sin(k_x x + k_y y + \omega t) - p_o \bigr)}
 $$
+
 The two wave numbers $k_x$ and $k_y$ constitute a wave vector $\mathbf{k}$, determining both *wave direction* and *wave length* and we do its dot product with the input coordinates to control the direction in which we want the wave to move. (we can control the direction in 2D as well by flipping the sign of $t$ from $+$ to $-$). 
+
 $$
 h(x, t) = A e^{\bigl(p_m \sin(\mathbf{k} \cdot x + \omega t) - p_o \bigr)}
 $$
+
 Since we want to add multiple of these waves, the resulting height field $h$ will be as follows.
+
 $$
 h(x, t) = \sum_{n=1}^N A_n e^{\bigl(p_m \sin(\mathbf{k_n} \cdot x + \omega_n t) - p_o \bigr)}
 $$
@@ -149,20 +155,25 @@ There are two ways to get the slopes. One is to estimate is based on the displac
 For the sake of showcasing, we will go through both the approaches. For this implementation using sum of sine I will showcase slope calculation and we will implement central difference normals for the FFT approach (discussed later in the post).
 
 So, whenever we talk about calculating slopes, we are essentially talking about calculating partial derivatives. Meaning that we need the partial derivative of the function $h(x, t)$.
+
 $$
 h(x, t) = A e^{\bigl(p_m \sin(\mathbf{k} \cdot x + \omega t) - p_o \bigr)}
 $$
+
 $$
 \frac{\partial h(x,t)}{\partial x} = \mathbf{k} \cdot p_m \cdot e^{\bigl(p_m \sin(\mathbf{k} \cdot x + \omega t) - p_o \bigr)} \cdot \cos(\mathbf{k} \cdot x + \omega t)
 $$
 
 We can use these slopes to calculate the tangent and binormal vectors like so.
+
 $$
 \vec{tangent} = <1, 0, \frac{\partial h}{\partial x}>
 $$
+
 $$
 \vec{binormal} = <0, 1, \frac{\partial h}{\partial y}>
 $$
+
 $$
 \vec{normal} = \vec{tangent} \times \vec{binormal}
 $$
@@ -170,9 +181,11 @@ $$
 And since we are calculating the partial derivatives, we can also implement a small technique called **domain warping**.  
 Domain warping makes the waves look like they are moving into each other and then getting pulled away. It's a very subtle change, but enhances the visuals.  
 In domain warping, we nudge the input coordinates by the partial derivate of the entire wave equation of previous wave. Which is a fancy way of saying that we displace the point $x$ by the slope of the previous wave given by our wave function.
+
 $$
 x += \frac{\partial h(x,t)}{\partial x} \cdot d
 $$
+
 where, $d$ = drag, a parameter to control the domain warping.
 
 And this in implementation looks like this.
@@ -236,10 +249,13 @@ But you would be surprised to know that the output in the very first image consi
 ## Recap
 But before we dive into how to achieve millions of waves without dropping the FPS, lets do a quick recap.
 So far, we have a wave equation that updates over time.
+
 $$
 h(x, t) = A e^{\bigl(p_m \sin(\mathbf{k} \cdot x + \omega t) - p_o \bigr)}
 $$
+
 and by adding a bunch of them with increasing frequency and decreasing amplitude we get our final simulation that updates over **time**.
+
 $$
 h(x, t) = \sum_{n=1}^N A_n e^{\bigl(p_m \sin(\mathbf{k_n} \cdot x + \omega_n t) - p_o \bigr)}
 $$
@@ -250,10 +266,13 @@ Our wave equation can be referred to as a Fourier series.
 	A Fourier series represents a periodic function as an infinite sum of sine and cosine functions, each with a different frequency and amplitude
 
 A [Fourier transform](https://youtu.be/spUNpyF58BY) can be used to break down all the frequencies that went into the creation of our wave function.
+
 $$
 F(\omega) = \int_{-\infty}^{\infty} f(t)\, e^{-i \omega t}\, dt
 $$
+
 Likewise, an inverse fourier transform can be used to merge all the frequencies into the a single wave function which is a collection of them.
+
 $$
 f(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\omega)\, e^{i \omega t}\, d\omega
 $$
@@ -272,27 +291,36 @@ So our goal now is to build the wave height field directly into the frequency do
 
 But before we do that we need to redefine our wave equation so that it can work with Fourier Transforms. [Tessendorf's suggests](https://www.researchgate.net/publication/264839743_Simulating_Ocean_Water) that the oceanographic literature tends to downplay the gerstner wave as a realistic wave equation.  
 And instead, the waves are defined by Euler's formula. This allow efficient FFT calculation because it turns out that the mathematical basis of a Fourier Transform has the Euler's formula.
+
 $$
 e^{ix} = \cos(x) + i\sin(x)
 $$
+
 With this, our wave parameters can be replaced with $x$ 
+
 $$
 A \sin(\mathbf{k}x + w t + p) \rightarrow Ae^{i(\mathbf{k}x + w t + p)}
 $$
+
 we can also replace the amplitude, the initial phase, and the time dependent components with a single complex amplitude that includes all of them
+
 $$
 Ae^{i(w t + p)}e^{i(\mathbf{k}x)} \rightarrow \hat{h}e^{i(\mathbf{k}x)}
 $$
+
 In this notation, the displacement of the sum of waves looks like this, which is a lot similar to the Frourier Transform equation mentioned above.
+
 $$
 h(x, t) = \sum_{\mathbf{k}}\hat{h}(\mathbf{k}, t)e^{i(\mathbf{k} \cdot x)}
 $$
 
 For sum of many waves we need different amplitudes for different waves. Since we have many waves (each with its own $\mathbf{k}$), we need many different complex amplitudes. So $\hat{h}$ becomes a function of $\mathbf{k}$.  
 And given a dispersion relation $\omega(\mathbf{k})$, the Fourier amplitudes (complex amplitudes) of the wavefield realization at time $t$ are:
+
 $$
 \hat{h}(\mathbf{k}, t) = \hat{h_0}(\mathbf{k})e^{i\omega(\mathbf{k})t}
 $$
+
 The $\hat{h}$ represents the wave function in frequency. And since the wave animates over time, the frequency spectrum is also time dependent and updates over time. This spectrum is called the **oceanographic spectrum**.
 
 NOTE: this time dependent equation is not the same as the one in our wave function. The time in wave function denotes the animation of wave over time because the wave is in time domain. Not to be confused with the evolution of frequency spectrum over time.  
@@ -312,9 +340,11 @@ Oceanographers have been studying the ocean water waves for quite some time. And
 ### Dispersion Relation
 But before we look at that math jumpscare, I would like introduce you to a term called Dispersion Relation. Which is the first unknown of our spectrum equation. A dispersion relation is a mathematical expression that describes how the frequency of a wave depends on its wavenumber (or equivalently, its wavelength).  
 For ocean waves the two primary forces that apply to the water are the wind and gravity.
+
 $$
 \omega(\mathbf{k}) = \sqrt{g\mathbf{k}\tanh(kD)}
 $$
+
 Here,  
 $\mathbf{k}$ is the wave number (wave vector)  
 $\omega$ is the frequency  
@@ -347,28 +377,37 @@ Their spectrum can be formulated as:
 $$
 S_{jonswap}(\omega) = \frac{\alpha g^2}{\omega^5} \exp\left(-\frac{5}{4}\left(\frac{\omega_p}{\omega}\right)^4\right) \gamma^r
 $$
+
 $$
 r = \exp\left(-\frac{(\omega - \omega_p)^2}{2\sigma^2\omega_p^2}\right)
 $$
+
 $$
 \alpha = 0.076\left(\frac{U^2}{Fg}\right)^{0.22}
 $$
+
 $$
 \omega_p = 22\left(\frac{g^2}{UF}\right)
 $$
+
 $$
 \gamma = 3.3
 $$
+
 $$
 \sigma = \begin{cases} 0.07 & \omega \leq \omega_p \\ 0.09 & \omega > \omega_p \end{cases}
 $$
+
 And the JONSWAP spectrum was designed based on the observations of deep ocean only. So in order to adapt it for shallower water regions, there is TMA correction. It is a frequency dependent function of ocean depth which can be applied as a multiplier to a deep water spectrum.
+
 $$
 \Phi(\omega, h) \approx \begin{cases} \frac{1}{2}\omega_h^2 & \text{if } \omega_h \leq 1 \\ 1 - \frac{1}{2}(2 - \omega_h)^2 & \text{if } \omega_h > 1 \end{cases}
 $$
+
 $$
 \omega_h = \omega \sqrt{\frac{D}{g}}
 $$
+
 where $D$ is the surface depth.
 
 Which when implemented looks like this.
@@ -411,6 +450,7 @@ The JONSWAP spectrum thus provides a more realistic model than Phillips by accou
 ### Directional Spread
 Another thing that we need to consider is the direction spread of the waves. It determines how wave energy disperses directionally, relative to the primary wind direction.  
 During the JONSWAP experiment, the directional spread that was observed is called the [Hasselmann Directional Spread](https://pure.mpg.de/pubman/faces/ViewItemOverviewPage.jsp?itemId=item_3262854).
+
 $$
 s_{Hasselmann} = \begin{cases} 6.97(\omega / \omega_p)^{4.06} & \text{if } \omega \leq \omega_p \\ 9.77(\omega / \omega_p)^{-2.33-1.45((U w_p / g) - 1.77)} & \text{if } \omega > \omega_p \end{cases}
 $$
@@ -423,12 +463,15 @@ The paper by [Christopher J Horvath](https://dl.acm.org/doi/abs/10.1145/2791261.
 $$
 D(\theta, \omega) = \text{lerp}\left(\frac{2}{\pi}\cos^2(\theta), \text{Cosine}^{2s}(\theta - \theta_0, s_{enhanced}), \beta\right)
 $$
+
 $$
 s_{enhanced} = s_{Hasselmann} + 16 \cdot \tanh\left(\frac{\omega}{\omega_p}\right) \cdot \text{swell}^2
 $$
+
 $$
 \text{Cosine}^{2s}(\theta - \theta_0, s) = Q(s_{enhanced}) \left|\cos\left(\frac{\theta - \theta_0}{2}\right)\right|^{2s}
 $$
+
 $$
 Q(s) = \begin{cases} -0.000564s^4 + 0.00776s^3 - 0.044s^2 + 0.192s + 0.163 & s < 5 \\ -4.80 \times 10^{-8}s^4 + 1.07 \times 10^{-5}s^3 - 9.53 \times 10^{-4}s^2 + 5.90 \times 10^{-2}s + 3.93 \times 10^{-1} & s \geq 5 \end{cases}
 $$
@@ -477,12 +520,15 @@ float DirectionSpectrum(float theta, float omega, SpectrumParameters spectrum)
 
 ### Energy Spectrum + Directional Spread
 Tessendorf suggests that the Fourier amplitudes of a wave height field can be produced as
+
 $$
 \hat{h_0}(\mathbf{k}) = \frac{1}{\sqrt{2}} (\xi_r + i\xi_i) \sqrt{P_h(\mathbf{k})}
 $$
+
 $$
 P_h(\mathbf{k}) = S_{jonswap}(\omega) \cdot \Phi(\omega, h) \cdot D(\theta, \omega)
 $$
+
 Where,
 $\xi_r$ and $\xi_i$ are two independent random numbers based on any (gaussian in our implementation) random number generation.
 
@@ -490,17 +536,21 @@ But wait a minute...this doesn't line up now does it. The function $P_h(\mathbf{
 This is where we use the dispersion relation to convert out parameters from the form of $\omega$ to $\mathbf{k}$. This is called the discretization of our continuous frequency. We need to do this because we are working on finite number of wave number while the equations so far have been continuous in nature.
 
 But this comes with a change in the $\hat{h_0}(\mathbf{k})$. It will now be represented as. 
+
 $$
 \frac{1}{\sqrt{2}} (\xi_r + i\xi_i) \sqrt{S(\omega) D(\theta, \omega) \frac{d\omega(\mathbf{k})}{d\mathbf{k}} \frac{1}{\mathbf{k}} \nabla k_x \nabla k_z }
 $$
+
 See AppendixA: Wave Vector Spectrum, Change of Variables of Horvath's paper.
 
 ### Low Pass Filter
 For rendering, we are usually dealing with relatively larger sized triangles. Meaning that there will always be a range of frequency which our triangle will not be able to show. And in order to skip those frequencies we implement a low pass filter.  
 A [low-pass filter](https://en.wikipedia.org/wiki/Low-pass_filter) is a filter that passes signals with a frequency lower than a selected cutoff frequency and attenuates signals with frequencies higher than the cutoff frequency.
+
 $$
 F(\mathbf{k}) = e^{-\lambda^2 |\mathbf{k}|^2}
 $$
+
 where
 $\lambda$ is the fade factor to control the cutoff.
 
@@ -539,9 +589,11 @@ gInitialSpectrum[threadID.xy] = float4(h0K, h0MinusK.x, -h0MinusK.y);
 
 ## Time Evolved Heightfield
 In order to animate our ocean water we need time evolved heightfield in frequency domain. Which brings us to the very first derivation in this section.
+
 $$
 \hat{h}(\mathbf{k}, t) = \hat{h_0}(\mathbf{k})e^{i(\mathbf{k} \cdot x + \omega(k)t)}
 $$
+
 Now, while implementing this, we need to take care of a couple things.  
 First is the time $t$. Ideally the time will move forward until infinity and will keep updating the waves. But since our computers can not store infinity in a variable we wrap the time by some arbitrary number. Meaning that time will loop in that range.  
 Another thing that we need to keep in mind is the horizontal displacement. So far, we have only been talking about the vertical displacement.  
@@ -733,7 +785,9 @@ finalColor = lerp(finalColor, lightColor * 0.5f, fresnel * 0.3f);
 ```
 
 And with that we get our beautiful ocean
+
 ![ocean_water.gif](../assets/6/ocean_water.gif)
+
 ## Future Work
 Well, even though we have implemented one of the most popular water rendering technique, we are still a long way from achieving a AAA quality ocean water simulation.
 - Wave Cacades
