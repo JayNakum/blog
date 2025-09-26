@@ -805,3 +805,10 @@ float4 baseWaterColor = baseColor * depthFactor;
 ```
 ## Conclusion
 Starting from dipping our toes to swimming into the water rendering. However this is still far from diving into the ocean. The FFT technique is just the first 50% of ocean water rendering, the lights are the other 50% and many iterations on this tech will slowly get it there.
+
+If you have any suggestions or comments and you like this post or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_) or linkedin [@JayNakum](https://www.linkedin.com/in/jaynakum/).
+## Thanks for reading, Aavjo!
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Consider supporting Jay?" data-message="consider supporting?" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
