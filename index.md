@@ -1,5 +1,9 @@
 [![Jay's Blog](./assets/header.png)](https://jaynakum.github.io/blog/)
 
+# RTT: Ocean Water Rendering using Sum of Sines and FFT
+_September 9, 2025_  
+Oh boy, it has been a long time but trust me, this is a good one. Welcome everyone and get your computers and notebooks ready because in this episode of Render Tech Tuesday, we will be demystifying Water Rendering from sum of sines to FFT, with the complete implementation and its mathematical intuition.
+[Continue reading...](./6/OceanRendering)
 # RTT: Rendering Water using Gerstner (Trochoidal) Waves
 _June 3, 2025_  
 The first of many Render Tech Tuesday. For this one, we have the most basic water rendering using Gerstner Waves.
