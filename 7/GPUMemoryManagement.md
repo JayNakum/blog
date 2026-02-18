@@ -45,7 +45,7 @@ In the Direct3D 12 API, there are multiple ways to perform such a data upload. A
 In d3d12, we use the [ID3D12Device::CreateHeap](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createheap) method to create a heap that can be used with placed and reserved resources. This internally initiates a very long sequence of operations across [multiple layers of the graphics stack](https://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/).
 
 First, the application code calls the CreateHeap() with a [D3D12_HEAP_DESC](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_desc) struct. This structure provides:
-```C++
+```Cpp
   UINT64                SizeInBytes;
   D3D12_HEAP_PROPERTIES Properties;
   UINT64                Alignment;
@@ -68,7 +68,7 @@ The driver calculates the actual GPU virtual address for the resource by taking 
 Now that we have a decent idea about how the memory works internally, we can take a look at how we can manage the resource placement.  
 ID3D12Heap* holds the Heap object and here is a simple wrapper over the ID3D12Heap that creates the heap in the constructor by calling the `ID3D12Device::CreateHeap` and destroys it in the destructor.
 
-```C++
+```Cpp
 /*
 * Wrapper over ID3D12Heap
 */
@@ -118,7 +118,7 @@ Here is a possible way to section the heap into.
 
 Using all these, we can write a new class which includes our heap wrapper that looks something like this. Where we make sections using a simple linear allocator and choose an appropriate allocator based on the resource category provided in the ResourceDescription. With some helper function overloads to create all the different type of GPU resources
 
-```C++
+```Cpp
 /*
 * A resource heap with a custom allocator.
 * It allocates the resource based on the specified ResourceCategory.
