@@ -1,5 +1,9 @@
 [![Jay's Blog](./assets/header.png)](https://jaynakum.github.io/blog/)
 
+# RTT: GPU Memory Management
+_February 18, 2026_  
+This week we will take a deep dive into the GPU's memory hierarchy and its resource management in my small game engine.
+[Continue reading...](./7/GPUMemoryManagement)
 # RTT: Ocean Water Rendering using Sum of Sines and FFT
 _September 9, 2025_  
 Oh boy, it has been a long time but trust me, this is a good one. Welcome everyone and get your computers and notebooks ready because in this episode of Render Tech Tuesday, we will be demystifying Water Rendering from sum of sines to FFT, with the complete implementation and its mathematical intuition.
@@ -26,3 +30,7 @@ Hello hello people of the earth! Welcome to my first blog post. In this post I w
 [Continue reading...](./1/HappyFace)
 
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Consider supporting Jay?" data-message="consider supporting?" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+---
+&copy; 2026-present Jay Nakum. All rights reserved.  
+Any direct or indirect use of all content requires prior written permission. No AI training allowed.
