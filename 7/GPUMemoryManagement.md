@@ -40,6 +40,7 @@ In the Direct3D 12 API, there are multiple ways to perform such a data upload. A
 - A third, not so commonly used, heap type is GPU_UPLOAD heap. It is some memory on the VRAM accessible to the CPU. This feature has existed for a long time, and it was known as Base Address Register (BAR). This special area of memory typically had only 256 MB. Modern PCs offer a possibility to extend it to the entire VRAM, making it all directly accessible to the CPU. This is called Resizable BAR (ReBAR) and needs to be explicitly enabled in UEFI/BIOS settings of the motherboard.
   [![gpu-upload](https://gpuopen.com/images/GPUOpen_GPU_Upload_Heaps_diagram_3.DMvA4IyK.png)](https://gpuopen.com/learn/using-d3d12-heap-type-gpu-upload/)
 - The fourth one is READBACK memory, this also resides in the system RAM. The GPU uses the PCIe bus to write data into system RAM. Modern GPUs can DMA directly to system memory, so they don't need CPU involvement for the transfer itself. However, synchronization is critical. You must ensure GPU writes have completed before the CPU tries to read, which is why you use fences to wait for GPU work to finish before mapping a readback heap.
+
 ## Creating a Heap
 In d3d12, we use the [ID3D12Device::CreateHeap](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createheap) method to create a heap that can be used with placed and reserved resources. This internally initiates a very long sequence of operations across [multiple layers of the graphics stack](https://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/).
 
@@ -55,15 +56,18 @@ The runtime performs validations such as the size is reasonable or the flags are
 Once validated, the call passes down to the user-mode driver, which is vendor-specific code. This is where things get really interesting because the driver has deep knowledge about the actual GPU hardware and its capabilities. The driver examines the heap request in context of the current memory situation. It checks how much VRAM is currently available, what else is allocated, and whether the request can be satisfied immediately. The driver maintains its own memory manager that tracks allocations at a finer granularity than the application sees. Heap allocation might be carved out of a larger internal allocation, or it might require the driver to request new memory from the kernel.  
 The driver then issues a call down to the kernel-mode driver, which runs the lowest level with full system privileges. The kernel driver is responsible for actually talking to the GPU hardware and managing the physical memory resources. It's the kernel driver that programs the GPU's memory management unit to set up the page tables that map virtual GPU addresses to physical memory locations.  
 Modern GPUs can also use virtual memory much like CPUs do. When a heap is created, we get a virtual GPU address space. The GPU's MMU translates these virtual addresses to physical addresses in VRAM or system RAM. This virtualization is what allows the OS to page memory in and out, because it can change the page table mappings without the GPU's shader programs needing to know that addresses have been remapped.   
-[![GPU MMU Model](https://learn.microsoft.com/en-us/windows-hardware/drivers/display/images/gpummu-model.1.png)](https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpummu-model) [Read more about the GPU MMU model here](https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpummu-model).
+[![GPU MMU Model](https://learn.microsoft.com/en-us/windows-hardware/drivers/display/images/gpummu-model.1.png)](https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpummu-model)  
+[Read more about the GPU MMU model here](https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpummu-model).
 
 So as you can see, creation of heap and switching the active heap are quite heavy operations. So we create and bind one heap for the entire application or game during the loading and then we manage the resource placement internally.
+
 ## Resource Placement Into Heaps
 Creating a placed resource within a heap using [CreatePlacedResource](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createplacedresource), carves out a sub region of the heap's virtual address space and giving it structure. The driver doesn't allocate new memory because the memory already exists in the heap. Instead, it creates a resource descriptor that defines how to interpret that region of memory.  
 The driver calculates the actual GPU virtual address for the resource by taking the heap's base virtual address and adding the requested offset. It validates that the resource fits within the heap boundaries and that alignment requirements are met. Textures need 64KB alignment because of how the GPU's texture units are designed and how they manage memory access patterns for efficient filtering.
 
 Now that we have a decent idea about how the memory works internally, we can take a look at how we can manage the resource placement.  
 ID3D12Heap* holds the Heap object and here is a simple wrapper over the ID3D12Heap that creates the heap in the constructor by calling the `ID3D12Device::CreateHeap` and destroys it in the destructor.
+
 ```C++
 /*
 * Wrapper over ID3D12Heap
@@ -99,6 +103,7 @@ private:
     Microsoft::WRL::ComPtr<ID3D12Heap> mHeap;
 };
 ```
+
 ### Resource Types
 When dealing with GPU resources, we generally categorize them into a few categories and we section our heap for each one of them. The core idea behind it is that the categories are not only based on the resource type, but we also categorize them based on residency ie how long do we plan to keep them in memory. And we do this to allow us to use different allocation strategies per categories to get minimum fragmentation.
 
@@ -110,7 +115,9 @@ Here is a possible way to section the heap into.
 - PersistentData: This is a simple section at the end of the heap where we keep resources that need to stay through the lifetime of the game or level.
 - UploadData: This is for a separate heap of type UPLOAD with ring allocation strategy.
 - UploadPersistent: This is a section of UPLOAD heap where the data stays persistent but in the upload heap.
+
 Using all these, we can write a new class which includes our heap wrapper that looks something like this. Where we make sections using a simple linear allocator and choose an appropriate allocator based on the resource category provided in the ResourceDescription. With some helper function overloads to create all the different type of GPU resources
+
 ```C++
 /*
 * A resource heap with a custom allocator.
@@ -346,11 +353,13 @@ private:
     }
 };
 ```
+
 ## Descriptor Heaps
 A descriptor in D3D12 is a small, well-defined block of data that lives in GPU accessible memory and tells the GPU hardware directly how to interpret and access a resource. We can think of a descriptor as a view of a resource. Same resource can have different views which specify a separate way to interpret the data.  
 Which is a good reason to keep them separate from the actual GPU resources and allowing the users to create them on demand. But when it comes to managing them it is no different than ID3D12Heap. In fact, it gets easier here because descriptors are a fixed size structs so when it comes to managing the offset, it is quite simple and can be done using a simple ring allocator.
 However, when we pair it with resource binding to the shaders, the process gets more intricate which we will take a look in the next blog.  
 But just for memory management for descriptors, it can be kept same as the resource heap with 4 separate descriptor heaps for ShaderViewsCPU, ShaderViewsGPU, RenderTargetCPU and DepthStencilCPU.
+
 ## Putting it all together
 We have done a deep dive into the GPU's memory hierarchy, created a small wrapper over the ID3D12Heap and defined a clear way to categorize the resources so that an appropriate allocation strategy can be chosen. The descriptor's memory management is also the same.
 
