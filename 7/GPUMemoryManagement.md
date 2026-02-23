@@ -11,6 +11,7 @@ Even though in this new generation of game development, where developers have st
 
 So that brings us to what were my needs from this engine. Well... it is not easily explainable, but to put it simply...my goal from this engine is to allow me to tinker with any rendering topic (including memory management) without everything falling apart and needing a complete refactor. So I try to go for the simplest solution.
 But due to my itch for designing the perfect system and writing the most awesome code to ever exist XD, I can not just leave it at "simple". So, the goal is to engineer it enough that it fits well with whatever, but it is simple enough to understand and change whenever, yet it somewhat resembles what modern game engines do, because afterall this exercise was also for me to understand the concept.
+
 ## ID3D12Heap
 So to understand the memory management for GPUs, we first start with what is available at the lowest level. And since my engine is built using D3D12 api and this system is also written around the same, lets talk about the ID3D12Heap.
 
@@ -20,6 +21,7 @@ So to understand the memory management for GPUs, we first start with what is ava
 > The ID3D12Heap interface inherits from ID3D12Pageable.
 
 Here is what [MSDN has to say about it](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nn-d3d12-id3d12heap). It says that it is a contiguous memory allocation from the physical memory. But this is just how it appears above the abstraction. Internally it is much more than this.
+
 ## The memory architecture
 Referring from [a post on AMD GPU Open](https://gpuopen.com/learn/using-d3d12-heap-type-gpu-upload/):
 When developing a graphics application using Direct3D 12 for a PC with a discrete graphics card, we work with 2 types of memory: system RAM located on the motherboard and video RAM (VRAM) located on the graphics card. The main processor (CPU) has fast and direct/local access to the system RAM, while the graphics processor (GPU) has fast and direct access to the VRAM. GPU has access to the system RAM via the PCIe bus but the communication is significantly slower.

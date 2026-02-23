@@ -37,9 +37,11 @@ typedef enum D3D12_DESCRIPTOR_HEAP_FLAGS {
 `FLAG_NONE` indicates a CPU visible heap and `FLAG_SHADER_VISIBLE` indicates a both CPU and a GPU visible heap. To get a descriptor handle for the start of a heap, after creating the descriptor heap itself, call one of the following methods:
 - [ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart](https://learn.microsoft.com/en-us/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart) which returns a [D3D12_CPU_DESCRIPTOR_HANDLE](https://learn.microsoft.com/en-us/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle).
 - [ID3D12DescriptorHeap::GetGPUDescriptorHandleForHeapStart](https://learn.microsoft.com/en-us/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart) which returns a [D3D12_GPU_DESCRIPTOR_HANDLE](https://learn.microsoft.com/en-us/windows/desktop/api/d3d12/ns-d3d12-d3d12_gpu_descriptor_handle).
+
 And it goes without saying that for a CPU only descriptor heap, the GPU handle would give an invalid address.  
 CPU handles are for immediate use, such as copying where both the source and destination need to be identified. GPU handles are not for immediate use, they identify locations from a command list, for use at GPU execution time. They must be preserved until any command lists referencing them have executed entirely.  
 To make it a little bit easier to store and increment the CPU and GPU handles, here is a small wrapper class that I [borrowed from microsoft's mini engine](https://github.com/microsoft/DirectX-Graphics-Samples/blob/master/MiniEngine/Core/DescriptorHeap.h). A Descriptor Handle in my engine will always have both CPU and GPU pointer. For the CPU only descriptors, the GPU pointer will be `INVALID_ADDRESS`. And the wrapper class also has a few helper methods and importantly the `+` and `+=` operator overloads for easily managing the increments.
+
 ```Cpp
 #pragma once
 
