@@ -1,4 +1,4 @@
-# RTT: Ocean Water Rendering using Sum of Sines and FFT
+# Ocean Water Rendering using Sum of Sines and FFT
 
 Oh boy, it has been a long time but trust me, this is a good one. Welcome everyone and get your computers and notebooks ready because in this episode of Render Tech Tuesday, we will be demystifying Water Rendering from sum of sines to FFT, with the complete implementation and its mathematical intuition.  
 ![ocean_water.gif](../assets/6/ocean_water.gif)
@@ -807,7 +807,7 @@ Starting from dipping our toes to swimming into the water rendering. However thi
 
 If you have any suggestions or comments and you like this post or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_) or linkedin [@JayNakum](https://www.linkedin.com/in/jaynakum/).
 ## Thanks for reading, Aavjo!
-&copy; 2026-present Jay Nakum. All rights reserved.  
+&copy; 2025 Jay Nakum. All rights reserved.  
 Any direct or indirect use of all content requires prior written permission. No AI training allowed.
 
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Consider supporting Jay?" data-message="consider supporting?" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>

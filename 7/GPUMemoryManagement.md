@@ -1,4 +1,4 @@
-# RTT: GPU Memory Management
+# GPU Memory Management
 
 After a busy few months, I am back at this blog. This week we will take a deep dive into the GPU memory management in my small game engine. The system is in no way, shape or form perfect for AAA usage. However, I think it is quite cool, simple and easily scalable to such levels.
 ![HeapWithAllocator](../assets/7/HeapWithAllocator.png)
@@ -14,11 +14,10 @@ But due to my itch for designing the perfect system and writing the most awesome
 ## ID3D12Heap
 So to understand the memory management for GPUs, we first start with what is available at the lowest level. And since my engine is built using D3D12 api and this system is also written around the same, lets talk about the ID3D12Heap.
 
-	ID3D12Heap interface (d3d12.h)
-	A heap is an abstraction of contiguous memory allocation, used to manage physical memory. This heap can be used with ID3D12Resource objects to support placed resources or reserved resources.
-	
-	Inheritance
-	The ID3D12Heap interface inherits from ID3D12Pageable.
+> ID3D12Heap interface (d3d12.h)
+> A heap is an abstraction of contiguous memory allocation, used to manage physical memory. This heap can be used with ID3D12Resource objects to support placed resources or reserved resources.
+> Inheritance
+> The ID3D12Heap interface inherits from ID3D12Pageable.
 
 Here is what [MSDN has to say about it](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nn-d3d12-id3d12heap). It says that it is a contiguous memory allocation from the physical memory. But this is just how it appears above the abstraction. Internally it is much more than this.
 ## The memory architecture
@@ -365,5 +364,7 @@ We have done a deep dive into the GPU's memory hierarchy, created a small wrappe
 
 If you have any suggestions or comments and you like this post or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_) or linkedin [@JayNakum](https://www.linkedin.com/in/jaynakum/).
 ## Thanks for reading, Aavjo!
-&copy; 2026-present Jay Nakum. All rights reserved.  
+&copy; 2026 Jay Nakum. All rights reserved.  
 Any direct or indirect use of all content requires prior written permission. No AI training allowed.
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Consider supporting Jay?" data-message="consider supporting?" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>

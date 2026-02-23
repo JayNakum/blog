@@ -1,14 +1,17 @@
 [![Jay's Blog](./assets/header.png)](https://jaynakum.github.io/blog/)
-
-# RTT: GPU Memory Management
+# GPU Resource Descriptors
+_February 23, 2026_  
+In the previous post we glanced on the descriptor's memory management. Today, we take a look at the entire system and talk about how I like to manage the resource binding and descriptors in my engine.
+[Continue reading...](./7/GPUMemoryManagement)
+# GPU Memory Management
 _February 18, 2026_  
 This week we will take a deep dive into the GPU's memory hierarchy and its resource management in my small game engine.
 [Continue reading...](./7/GPUMemoryManagement)
-# RTT: Ocean Water Rendering using Sum of Sines and FFT
+# Ocean Water Rendering using Sum of Sines and FFT
 _September 9, 2025_  
 Oh boy, it has been a long time but trust me, this is a good one. Welcome everyone and get your computers and notebooks ready because in this episode of Render Tech Tuesday, we will be demystifying Water Rendering from sum of sines to FFT, with the complete implementation and its mathematical intuition.
 [Continue reading...](./6/OceanRendering)
-# RTT: Rendering Water using Gerstner (Trochoidal) Waves
+# Rendering Water using Gerstner (Trochoidal) Waves
 _June 3, 2025_  
 The first of many Render Tech Tuesday. For this one, we have the most basic water rendering using Gerstner Waves.
 [Continue reading...](./5/GerstnerWaves)

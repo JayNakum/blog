@@ -52,7 +52,7 @@ You can find the complete documented implementation at `src\main.cpp` on my GitH
 [![BitsApriori](https://github-readme-stats.vercel.app/api/pin/?username=JayNakum&repo=BitsApriori)](https://github.com/JayNakum/BitsApriori)  
 If you have any suggestions or comments and you like this project or you want to learn more, lets connect on twitter [@JayNakum_](https://twitter.com/JayNakum_).
 ## Thanks for reading, Aavjo!
-&copy; 2026-present Jay Nakum. All rights reserved.  
+&copy; 2023 Jay Nakum. All rights reserved.  
 Any direct or indirect use of all content requires prior written permission. No AI training allowed.
 
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jaynakum" data-description="Consider supporting Jay?" data-message="consider supporting?" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
