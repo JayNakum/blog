@@ -2,7 +2,7 @@
 # GPU Resource Descriptors
 _February 23, 2026_  
 In the previous post we glanced on the descriptor's memory management. Today, we take a look at the entire system and talk about how I like to manage the resource binding and descriptors in my engine.
-[Continue reading...](./7/GPUMemoryManagement)
+[Continue reading...](./8/GPUResourceDescriptors)
 # GPU Memory Management
 _February 18, 2026_  
 This week we will take a deep dive into the GPU's memory hierarchy and its resource management in my small game engine.

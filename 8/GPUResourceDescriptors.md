@@ -4,7 +4,10 @@ In the [previous post](https://jaynakum.github.io/blog/7/GPUMemoryManagement) I 
 > However, when we pair it with resource binding to the shaders, the process gets more intricate which we will take a look in the next blog.  
 > But just for memory management for descriptors, it can be kept same as the resource heap with 4 separate descriptor heaps
 
-So lets take a look at "how intricate" does it get.  
+So lets take a look at "how intricate" does it get.
+
+![ShaderInputSystem.png](../assets/8/ShaderInputSystem.png)
+
 When the GPU's command processor encounters a draw call in a command buffer, it kicks off shader execution across thousands of threads. Each shader thread needs to know where to find its input data. The GPU needs this information in a format it can consume directly, with no driver intervention.  
 The shader itself is a compiled code running on the GPU's shader cores. When the shader executes an instruction like `texture.Sample(sampler, uv)`, that instruction contains a register number such as t0 for texture register 0. The GPU needs to translate that logical register number into a physical memory address where it can fetch texel data. This translation happens through the descriptor machinery.  
 Today, we take a look at the entire system and talk about how I like to manage the resource binding and descriptors in my engine.
